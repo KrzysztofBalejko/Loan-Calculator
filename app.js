@@ -1,9 +1,6 @@
-// Listen for submit
 document.getElementById('loan-form').addEventListener('submit', calculateResults);
 
-// Calculate results
 function calculateResults(e) {
-  // UI variables
   const amount = document.getElementById('amount');
   const interest = document.getElementById('interest');
   const years = document.getElementById('years');
@@ -15,7 +12,6 @@ function calculateResults(e) {
   const calculatedInterest = parseFloat(interest.value) / 100 / 12;
   const calculatedPayments = parseFloat(years.value) * 12;
 
-  // Monthly payments calculation
   const x = Math.pow(1 + calculatedInterest, calculatedPayments);
   const monthly = (principal*x*calculatedInterest)/(x-1);
 
@@ -24,13 +20,12 @@ function calculateResults(e) {
     totalPayment.value = (monthly * calculatedPayments).toFixed(2);
     totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2);
   } else {
-    // Adding error message if numbers are not entered or missing
     showError('Please check your numbers');
   }
 
   e.preventDefault();
 }
-// New function added
+
 function showError(error){
   const errorDiv = document.createElement('div');
   const card = document.querySelector('.card');
@@ -38,4 +33,10 @@ function showError(error){
   errorDiv.className = 'alert alert-danger';
   errorDiv.appendChild(document.createTextNode(error));
   card.insertBefore(errorDiv, heading);
+  setTimeout(clearError, 3000)
 }
+
+function clearError() {
+  document.querySelector('.alert').remove();
+}
+  
