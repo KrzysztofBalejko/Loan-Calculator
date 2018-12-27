@@ -24,8 +24,18 @@ function calculateResults(e) {
     totalPayment.value = (monthly * calculatedPayments).toFixed(2);
     totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2);
   } else {
-    console.log('Please check your numbers');
+    // Adding error message if numbers are not entered or missing
+    showError('Please check your numbers');
   }
 
   e.preventDefault();
+}
+// New function added
+function showError(error){
+  const errorDiv = document.createElement('div');
+  const card = document.querySelector('.card');
+  const heading = document.querySelector('.heading');
+  errorDiv.className = 'alert alert-danger';
+  errorDiv.appendChild(document.createTextNode(error));
+  card.insertBefore(errorDiv, heading);
 }
